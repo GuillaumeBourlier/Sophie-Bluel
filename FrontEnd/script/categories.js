@@ -1,45 +1,33 @@
-// Gestion des catégories (récupération des catégories, affichage des filtres).
+// URL de l'API pour récupérer les projets
+const apiUrl = "http://localhost:5678/api/works"; // console.log("URL de l'API pour récupérer les projets :", apiUrl);
 
-const apiUrl = "http://localhost:5678/api/works";
-const categoryUrl = "http://localhost:5678/api/categories";
+// URL de l'API pour récupérer les catégories
+const categoryUrl = "http://localhost:5678/api/categories"; // console.log("URL de l'API pour récupérer les catégories :", categoryUrl);
 
-//////////////////////////////////////////////////////
-// Fonction pour récupérer les projets depuis l'API //
-//////////////////////////////////////////////////////
-function fetchProjects() {
-  return fetch(apiUrl)
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error("Erreur lors de la récupération des projets");
-      }
-      return response.json();
-    })
-    .catch(function (error) {
-      console.error("Erreur lors du fetch des projets :", error);
-      return [];
-    });
+// Fonction pour récupérer les données depuis l'API
+function fetchData() {
+  return Promise.all([
+    fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erreur lors de la récupération des projets"); // console.log("Erreur lors de la récupération des projets :", response.status, response.statusText);
+        }
+        return response.json(); // console.log("Projets récupérés :", response.json());
+      }),
+    fetch(categoryUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erreur lors de la récupération des catégories"); // console.log("Erreur lors de la récupération des catégories :", response.status, response.statusText);
+        }
+        return response.json(); // console.log("Catégories récupérées :", response.json());
+      }),
+  ]).catch((error) => {
+    console.error("Erreur lors du fetch des données :", error);
+    return [[], []]; // Retourne des tableaux vides en cas d'erreur
+  });
 }
 
-/////////////////////////////////////////////////////////
-// Fonction pour récupérer les catégories depuis l'API //
-/////////////////////////////////////////////////////////
-function fetchCategories() {
-  return fetch(categoryUrl)
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error("Erreur lors de la récupération des catégories");
-      }
-      return response.json();
-    })
-    .catch(function (error) {
-      console.error("Erreur lors du fetch des catégories :", error);
-      return []; // Retourner un tableau vide en cas d'erreur
-    });
-}
-
-////////////////////////////////////////////////////////
-// Fonction pour afficher les projets dans la galerie //
-////////////////////////////////////////////////////////
+// Fonction pour afficher les projets dans la galerie
 function displayProjects(projects) {
   const galleryContainer = document.querySelector(".gallery");
   galleryContainer.innerHTML = ""; // Réinitialisation de la galerie
@@ -53,12 +41,12 @@ function displayProjects(projects) {
     `;
     galleryContainer.appendChild(projectItem);
   });
+
+  console.log("Projets affichés dans la galerie");
 }
 
-/////////////////////////////////////////////////////////
-// Fonction pour ajouter les catégories dans le filtre //
-/////////////////////////////////////////////////////////
-function populateCategoryFilter(categories) {
+// Fonction pour ajouter les catégories dans le filtre
+function populateCategoryFilter(categories, projects) {
   const filterContainer = document.querySelector(".filters");
   filterContainer.innerHTML = ""; // Réinitialisation des filtres
 
@@ -73,52 +61,46 @@ function populateCategoryFilter(categories) {
     categoryButton.innerHTML = `<button class="filter-btn" data-category="${category.id}">${category.name}</button>`;
     filterContainer.appendChild(categoryButton);
   });
-}
 
-// Fonction pour initialiser les catégories et le filtrage
-function initCategories(projects) {
-  fetchCategories()
-    .then((categories) => {
-      populateCategoryFilter(categories);
+  console.log("Filtres de catégories ajoutés");
 
-      // Gérer les clics sur les boutons de filtre
-      document.addEventListener("click", function (event) {
-        if (event.target.classList.contains("filter-btn")) {
-          const categoryId = event.target.getAttribute("data-category");
+  // Gérer les clics sur les boutons de filtre
+  filterContainer.addEventListener("click", function (event) {
+    if (event.target.classList.contains("filter-btn")) {
+      const categoryId = event.target.getAttribute("data-category");
 
-          // Enlever la classe 'selected' de tous les boutons de filtre
-          document.querySelectorAll(".filter-btn").forEach(function (button) {
-            button.classList.remove("selected");
-          });
-
-          // Ajouter la classe 'selected' au bouton cliqué
-          event.target.classList.add("selected");
-
-          // Filtrer les projets en fonction de la catégorie sélectionnée
-          const filteredProjects =
-            categoryId == 0
-              ? projects // Si catégorie "Tous", afficher tous les projets
-              : projects.filter(function (project) {
-                  return project.categoryId == categoryId;
-                });
-
-          displayProjects(filteredProjects); // Afficher les projets filtrés
-        }
+      // Enlever la classe 'selected' de tous les boutons de filtre
+      document.querySelectorAll(".filter-btn").forEach(function (button) {
+        button.classList.remove("selected");
       });
-    })
-    .catch((error) => {
-      console.error("Erreur lors de la récupération des catégories :", error);
-    });
+
+      // Ajouter la classe 'selected' au bouton cliqué
+      event.target.classList.add("selected");
+
+      // Filtrer les projets en fonction de la catégorie sélectionnée
+      const filteredProjects =
+        categoryId == 0
+          ? projects // Si catégorie "Tous", afficher tous les projets
+          : projects.filter(function (project) {
+              return project.categoryId == categoryId;
+            });
+
+      displayProjects(filteredProjects); // Afficher les projets filtrés
+    }
+  });
+
+  console.log("Gestion des clics sur les filtres de catégories configurée");
 }
 
 // Initialisation de la galerie et des filtres une fois le DOM chargé
 document.addEventListener("DOMContentLoaded", function () {
-  fetchProjects()
-    .then(function (projects) {
+  fetchData()
+    .then(([projects, categories]) => {
       displayProjects(projects);
-      initCategories(projects); // Initialise les filtres de catégories
+      populateCategoryFilter(categories, projects); // Initialise les filtres de catégories
+      console.log("Données chargées et affichées");
     })
     .catch((error) => {
-      console.error("Erreur lors du chargement des projets :", error);
+      console.error("Erreur lors du chargement des données :", error);
     });
 });

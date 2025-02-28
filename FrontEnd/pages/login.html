@@ -14,21 +14,23 @@
 </head>
 
 <body>
+  <div id="admin-bar"></div>
   <div class="content">
     <header class="header">
       <h1>
         Sophie Bluel
-        <span>Architecte d'intérieur</span>
+        <span>ARCHITECTE D'INTÉRIEUR</span>
       </h1>
       <nav>
         <ul>
           <li><a class="navlink" href="../index.html#projets">projets</a></li>
           <li><a class="navlink" href="../index.html#contact">contact</a></li>
           <li><a class="navlink" id="logMode" href="./login.html">login</a></li>
-          <li><img src="../assets/icons/instagram.png" alt="Instagram" /></li>
+          <li><img src="../assets/icons/instagram.png" class= "instagram-logo" alt="Instagram" /></li>
         </ul>
       </nav>
     </header>
+
     <main>
       <section id="login">
         <form action="" class="login">
@@ -51,8 +53,9 @@
         </ul>
       </nav>
     </footer>
-<script type="module" src="../script/login.js"></script>
-  </div>
+
+    <script type="module" src="../script/authservice.js"></script>
+    <script type="module" src="../script/login.js"></script>
 </body>
 
 </html>
