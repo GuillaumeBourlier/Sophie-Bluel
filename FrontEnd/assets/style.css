@@ -1,0 +1,734 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+  background: #fffef8;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/** end reset css**/
+body {
+  max-width: 1140px;
+  margin: auto;
+  font-family: "Work Sans";
+  font-size: 14px;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 0;
+}
+section {
+  margin: 100px 100px;
+}
+
+a {
+  color: inherit;
+}
+
+h1 {
+  display: flex;
+  flex-direction: column;
+  font-family: "Syne";
+  font-size: 22px;
+  font-weight: 800;
+  color: #b1663c;
+}
+
+h1 > span {
+  font-family: "Work Sans";
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+h2 {
+  font-family: "Syne";
+  font-weight: 700;
+  font-size: 30px;
+  color: #1d6154;
+}
+nav ul {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+}
+nav li {
+  padding: 0 10px;
+  font-size: 1.2em;
+}
+
+.navlink {
+  text-decoration: none;
+}
+
+.navlink:visited {
+  color: inherit;
+}
+
+li:hover {
+  font-weight: 900;
+}
+
+#introduction {
+  display: flex;
+  align-items: center;
+}
+#introduction figure {
+  flex: 1.3;
+}
+#introduction img {
+  display: block;
+  margin: auto;
+  width: 90%;
+  position: relative; /* Ajoutez cette ligne */
+  left: -30px; /* Ajustez cette valeur pour positionner l'image légèrement à gauche */
+}
+
+#introduction article {
+  flex: 1;
+}
+#introduction h2 {
+  margin-bottom: 1em;
+}
+
+#introduction p {
+  margin-bottom: 1.5em;
+}
+#portfolio h2 {
+  text-align: center;
+  margin-bottom: 2em;
+  margin-top: 2em;
+  display: inline-block;
+}
+.gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 30px;
+}
+.gallery img {
+  width: 100%;
+}
+.project-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.project-item h4 {
+  margin-top: 10px;
+  text-align: left;
+  width: 100%;
+}
+#contact {
+  width: 50%;
+  margin: auto;
+}
+#contact > * {
+  text-align: center;
+}
+#contact h2 {
+  margin-bottom: 20px;
+}
+#contact form {
+  text-align: left;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+#contact input {
+  padding: 18px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#contact label {
+  margin: 2em 0 1em 0;
+}
+#contact textarea {
+  border: none;
+  box-shadow: 0px 10px 14px rgba(0, 0, 0, 0.09);
+}
+
+input[type="submit"] {
+  font-family: "Syne";
+  font-weight: 700;
+  color: white;
+  background-color: #1d6154;
+  margin: 2em auto;
+  width: 180px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 60px;
+}
+
+input[type="submit"]:hover {
+  background-color: #0e2f28;
+}
+
+footer nav ul {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2em;
+}
+/* Styles pour l'en-tête du portfolio */
+.portfolio-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+.portfolio-header h2 {
+  margin-right: 5px;
+}
+.portfolio-header .edit-button {
+  display: flex;
+  align-items: center;
+}
+/* Section des filtres sous le titre */
+#filters {
+  margin-top: 10px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+/* Liste des filtres */
+#filters .filters {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+}
+
+/* Style pour chaque bouton de filtre */
+#filters .filters li {
+  list-style: none;
+}
+
+#filters .filters li button {
+  display: inline-flex;
+  border: 1px solid #1d6154;
+  padding: 10px 20px;
+  border-radius: 60px;
+  color: #1d6154;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#filters .filters li button:hover {
+  background: #1d6154;
+  color: #fff;
+}
+
+/* Bouton de filtre sélectionné */
+#filters .filters li button.selected {
+  background-color: #1d6154;
+  color: #fff;
+}
+
+/*Login*/
+
+#login {
+  width: 50%;
+  margin: auto;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.login h2 {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.login label {
+  margin: 2em 0 1em 0;
+  font-family: "Work Sans";
+}
+
+#email,
+#password {
+  display: flex;
+  padding: 18px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#submit {
+  padding: 10px;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: none;
+}
+
+.login .forgot {
+  text-align: center;
+  font-family: "Work Sans";
+}
+
+.login a {
+  color: inherit;
+}
+.login a:hover {
+  text-decoration: none;
+}
+
+#login-error {
+  display: none;
+  color: red;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+#logoutLink {
+  position: relative;
+  left: -15px;
+}
+
+.instagram-logo {
+  width: 24px;
+  height: auto;
+}
+
+/* Styles pour la modale */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal {
+  background: white;
+  padding: 20px 60px;
+  border-radius: 8px;
+  width: 630px;
+  width: 630px;
+  height: 688px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.modal-back {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.modal-title {
+  text-align: center;
+  font-size: 26px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  color: #000000;
+}
+#project-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 30px;
+  margin-top: 20px;
+}
+.project-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.project-image-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.project-image-container img {
+  width: 100px;
+  height: 130px;
+  object-fit: cover;
+}
+.delete-project-button {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: black;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 0.8em;
+  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-project-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.modal-separator {
+  border: none;
+  height: 1px;
+  background: #b3b3b3;
+  margin: 50px 0;
+}
+
+.modal-separator2 {
+  border: none;
+  height: 1px;
+  background: #b3b3b3;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.add-photo-button {
+  background: #1d6154;
+  color: white;
+  border: none;
+  padding: 10px 60px;
+  border-radius: 25px;
+  cursor: pointer;
+  align-self: center;
+  display: block;
+  margin: -20px auto 0;
+}
+.add-photo-button:hover {
+  background: #0e2f28;
+}
+.photo-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.photo-upload-box {
+  background: #e8f1f6;
+  width: 420px;
+  height: 169px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+#uploaded-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  display: none;
+  z-index: 1;
+}
+
+.photo-upload-box i,
+.photo-upload-box p {
+  z-index: 0;
+}
+
+.photo-upload-box i {
+  font-size: 3em;
+  color: #b9c5cc;
+}
+.upload-button {
+  position: relative;
+  background: #cbd6dc;
+  color: #306685;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  z-index: 0;
+}
+.upload-button p {
+  z-index: 0;
+}
+.file-upload-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+.upload-button:hover {
+  background: #b3b3b3;
+}
+.submit-button {
+  background: #a7a7a7;
+  color: white;
+  border: none;
+  padding: 15px 80px;
+  border-radius: 25px;
+  cursor: not-allowed;
+  display: block;
+  margin: 20px auto 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.submit-button.active {
+  background: #1d6154;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background: #8f8f8f;
+}
+
+.submit-button.active:hover {
+  background: #0e2f28;
+}
+
+/* Styles pour centrer les éléments du formulaire */
+.modal form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.modal form label {
+  margin: 2em 0 1em 0;
+  width: 420px;
+  font-size: 16px;
+  text-align: left;
+}
+.modal form .modal-input,
+.modal form .modal-select {
+  box-sizing: border-box;
+  padding: 18px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  width: 410px;
+  height: 55px;
+  text-align: left;
+}
+
+.modal-select {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Styles pour la barre noire de mode édition */
+#admin-bar {
+  display: none;
+  background: black;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  font-family: "Work Sans", sans-serif;
+  cursor: pointer;
+}
+#admin-bar i {
+  margin-right: 5px;
+}
+
+/* Styles pour le bouton "Modifier" */
+.edit-button-no-border {
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  gap: 5px;
+}
+.edit-button-no-border i {
+  margin-right: 5px;
+}
+.edit-button {
+  font-family: "Work Sans", sans-serif;
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.edit-button:hover {
+  color: #1d6154;
+}
+
+.project-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.modal-project-image {
+  width: 100%;
+  height: 100%;
+  max-height: 150px;
+  object-fit: contain;
+}
