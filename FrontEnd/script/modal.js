@@ -6,18 +6,15 @@ import {
 
 let projects = [...initialProjects];
 
-// Sélection du bouton "Modifier"
 const editButton = document.querySelector(".edit-button");
 
-// Fonction pour fermer toutes les modales
 const closeModal = () => {
   const existingModalOverlay = document.getElementById("modal-overlay");
   if (existingModalOverlay) {
     existingModalOverlay.remove();
   }
 };
-
-// Fonction pour réinitialiser le formulaire
+// Fonction pour réinitialiser le formulaire d'ajout de photo
 const resetForm = () => {
   const fileInput = document.getElementById("file-upload");
   const uploadedImage = document.getElementById("uploaded-image");
@@ -33,15 +30,14 @@ const resetForm = () => {
   submitButton.classList.remove("active");
   submitButton.setAttribute("disabled", "true");
 };
-
-// Fonction pour générer la modale de galerie photo
+// Fonction pour ouvrir la modale de galerie photo
 export const openModal = async () => {
   closeModal();
 
   if (!projects.length || !categories.length) {
     await initializeData();
   }
-
+ // Contenu HTML de la modale
   const modalHtml = `
     <div class="modal-overlay" id="modal-overlay">
       <div class="modal" id="modal">
@@ -55,26 +51,21 @@ export const openModal = async () => {
       </div>
     </div>`;
 
-  // Insertion de la modale dans le body
   document.body.insertAdjacentHTML("beforeend", modalHtml);
 
-  // Sélection des éléments dans la modale
   const modalOverlay = document.getElementById("modal-overlay");
   const modalClose = document.getElementById("modal-close");
   const addPhotoButton = document.getElementById("add-photo-button");
   const projectList = document.getElementById("project-list");
 
-  // Fermeture de la modale en cliquant sur la croix
   modalClose.addEventListener("click", closeModal);
 
-  // Fermeture de la modale en cliquant à l'extérieur
   window.addEventListener("click", (event) => {
     if (event.target === modalOverlay) {
       closeModal();
     }
   });
-
-  // Afficher les projets dans la galerie
+  // Affiche les projets dans la galerie
   projects.forEach((project) => {
     const projectItem = document.createElement("div");
     projectItem.classList.add("project-item");
@@ -101,14 +92,12 @@ export const openModal = async () => {
     projectList.appendChild(projectItem);
   });
 
-  // Ouvrir la modale d'ajout de photo
   addPhotoButton.addEventListener("click", openAddPhotoModal);
 };
 
-// Fonction pour générer la modale d'ajout de photo
 export const openAddPhotoModal = () => {
-  closeModal(); // Fermer toute modale existante
-
+  closeModal();
+  // Contenu HTML de la modale d'ajout de photo
   const modalHtml = `
     <div class="modal-overlay" id="modal-overlay">
       <div class="modal" id="modal">
@@ -144,10 +133,8 @@ export const openAddPhotoModal = () => {
       </div>
     </div>`;
 
-  // Insertion de la modale dans le body
   document.body.insertAdjacentHTML("beforeend", modalHtml);
 
-  // Sélection des éléments dans la modale
   const modalOverlay = document.getElementById("modal-overlay");
   const modalClose = document.getElementById("modal-close");
   const modalBack = document.getElementById("modal-back");
@@ -162,31 +149,26 @@ export const openAddPhotoModal = () => {
   );
   const submitButton = document.getElementById("submit-button");
 
-  // Fermeture de la modale en cliquant sur la croix
   modalClose.addEventListener("click", closeModal);
 
-  // Retour à la galerie photo en cliquant sur la flèche
   modalBack.addEventListener("click", () => {
     closeModal();
     openModal();
   });
 
-  // Fermeture de la modale en cliquant à l'extérieur
   window.addEventListener("click", (event) => {
     if (event.target === modalOverlay) {
       closeModal();
     }
   });
-
-  // Afficher les catégories dans le menu déroulant
+  // Affiche les catégories dans le menu déroulant
   categories.forEach((category) => {
     const option = document.createElement("option");
     option.value = category.id;
     option.textContent = category.name;
     categorySelect.appendChild(option);
   });
-
-  // Activer le bouton de soumission lorsque tous les champs sont remplis
+// Verification de la validité du formulaire
   const checkFormValidity = () => {
     const title = document.getElementById("title").value;
     const category = document.getElementById("category").value;
@@ -214,25 +196,24 @@ export const openAddPhotoModal = () => {
         uploadedImage.style.display = "block";
         uploadTextElements.forEach(
           (element) => (element.style.display = "none")
-        ); // Masquer le texte en dessous
-        fileError.style.display = "none"; // Masquer le message d'erreur du fichier
+        );
+        fileError.style.display = "none";
       };
       reader.readAsDataURL(file);
     }
     checkFormValidity();
   });
-
-  // Gestion de la soumission du formulaire
+// Envoi du formulaire
   const form = document.getElementById("add-photo-form");
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-
+// Récupération des données du formulaire
     const title = document.getElementById("title").value;
     const category = document.getElementById("category").value;
     const file = fileInput.files[0];
 
     let hasError = false;
-
+// Vérification des champs
     if (!file) {
       fileError.style.display = "block";
       hasError = true;
@@ -253,12 +234,12 @@ export const openAddPhotoModal = () => {
     }
 
     formError.style.display = "none";
-
+// Envoi des données
     const formData = new FormData();
     formData.append("title", title);
     formData.append("category", category);
     formData.append("image", file);
-
+// Requête POST
     try {
       const response = await fetch("http://localhost:5678/api/works", {
         method: "POST",
@@ -271,16 +252,13 @@ export const openAddPhotoModal = () => {
       if (!response.ok) {
         throw new Error("Erreur lors de l'ajout du projet");
       }
-
+// Ajout du projet dans la galerie
       const newProject = await response.json();
 
-      // Ajouter le nouveau projet à la liste des projets
       projects.push(newProject);
 
-      // Mettre à jour le cache localStorage
       localStorage.setItem("projectsCache", JSON.stringify(projects));
 
-      // Ajouter le nouveau projet à la galerie principale
       const galleryContainer = document.querySelector(".gallery");
       const projectItem = document.createElement("div");
       projectItem.classList.add("project-item");
@@ -290,7 +268,6 @@ export const openAddPhotoModal = () => {
       `;
       galleryContainer.appendChild(projectItem);
 
-      // Ajouter le nouveau projet à la galerie de la modale
       const projectList = document.getElementById("project-list");
       if (projectList) {
         const modalProjectItem = document.createElement("div");
@@ -318,14 +295,12 @@ export const openAddPhotoModal = () => {
         projectList.appendChild(modalProjectItem);
       }
 
-      // Fermer la modale après l'ajout
       closeModal();
     } catch (error) {
       console.error("Erreur lors de l'ajout du projet :", error);
     }
   });
 };
-
 // Fonction pour supprimer un projet
 const deleteProject = async (projectId, projectItem) => {
   try {
@@ -343,27 +318,22 @@ const deleteProject = async (projectId, projectItem) => {
       throw new Error("Erreur lors de la suppression du projet");
     }
 
-    // Supprimer l'élément du DOM après confirmation de la suppression
     projectItem.remove();
 
-    // Supprimer l'élément correspondant de la page principale
     const mainGallery = document.querySelector(".gallery");
     const mainProjectItem = mainGallery.querySelector(
       `img[src="${projectItem.querySelector("img").src}"]`
     ).parentElement;
     mainProjectItem.remove();
 
-    // Mettre à jour les données des projets
     projects = projects.filter((project) => project.id !== projectId);
 
-    // Mettre à jour le cache localStorage
     localStorage.setItem("projectsCache", JSON.stringify(projects));
   } catch (error) {
     console.error("Erreur lors de la suppression du projet :", error);
   }
 };
 
-// Ouvrir la modale au clic sur le bouton "Modifier"
 if (editButton) {
   editButton.addEventListener("click", openModal);
 }

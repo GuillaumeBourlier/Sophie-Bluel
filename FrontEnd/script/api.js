@@ -1,11 +1,10 @@
-// Utilisation du cache en mémoire pour éviter les doublons d'appels fetch
 const apiUrl = "http://localhost:5678/api/works";
 const categoryUrl = "http://localhost:5678/api/categories";
 
 let projectsCache = null;
 let categoriesCache = null;
 
-// Fonction pour récupérer les projets avec cache en mémoire
+// Fonction pour récupérer les projets
 export const fetchProjects = async () => {
   if (projectsCache) {
     return projectsCache;
@@ -17,15 +16,15 @@ export const fetchProjects = async () => {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
     const data = await response.json();
-    projectsCache = data; // Sauvegarde dans le cache en mémoire
+    projectsCache = data;
     return data;
   } catch (error) {
     console.error("Erreur lors du fetch des projets :", error);
-    return []; // Retourner un tableau vide en cas d'erreur
+    return [];
   }
 };
 
-// Fonction pour récupérer les catégories avec cache en mémoire
+// Fonction pour récupérer les catégories
 export const fetchCategories = async () => {
   if (categoriesCache) {
     return categoriesCache;

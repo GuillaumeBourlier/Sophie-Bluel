@@ -4,8 +4,7 @@ import { initializeData, projects, categories } from "./app.js";
 function displayProjects(projects) {
   const galleryContainer = document.querySelector(".gallery");
   galleryContainer.innerHTML = "";
-
-  // Parcourir chaque projet et l'ajouter à la galerie
+// Ajout des projets dans la galerie
   projects.forEach(function (project) {
     const projectItem = document.createElement("div");
     projectItem.classList.add("project-item");
@@ -16,38 +15,31 @@ function displayProjects(projects) {
     galleryContainer.appendChild(projectItem);
   });
 }
-
 // Fonction pour ajouter les catégories dans le filtre
 function populateCategoryFilter(categories, projects) {
   const filterContainer = document.querySelector(".filters");
   filterContainer.innerHTML = "";
 
-  // Ajouter le bouton "Tous" car absent dans la récup de l'API
   const allButton = document.createElement("li");
   allButton.innerHTML = `<button class="filter-btn selected" data-category="0">Tous</button>`;
   filterContainer.appendChild(allButton);
-
-  // Ajouter les boutons pour chaque catégorie
+// Ajout des boutons pour chaque catégorie
   categories.forEach(function (category) {
     const categoryButton = document.createElement("li");
     categoryButton.innerHTML = `<button class="filter-btn" data-category="${category.id}">${category.name}</button>`;
     filterContainer.appendChild(categoryButton);
   });
-
-  // Gérer les clics sur les boutons de filtre
+// Filtrer les projets lorsqu'on clique sur un bouton
   filterContainer.addEventListener("click", function (event) {
     if (event.target.classList.contains("filter-btn")) {
       const categoryId = event.target.getAttribute("data-category");
 
-      // Enlever la classe 'selected' de tous les boutons de filtre
       document.querySelectorAll(".filter-btn").forEach(function (button) {
         button.classList.remove("selected");
       });
 
-      // Ajouter la classe 'selected' au bouton cliqué
       event.target.classList.add("selected");
 
-      // Filtrer les projets en fonction de la catégorie sélectionnée
       const filteredProjects =
         categoryId == 0
           ? projects
@@ -59,11 +51,9 @@ function populateCategoryFilter(categories, projects) {
     }
   });
 }
-
-// Initialisation de la galerie et des filtres une fois le DOM chargé
+// Initialisation de données et affichage des projets
 document.addEventListener("DOMContentLoaded", async function () {
   try {
-    // Initialiser les données
     await initializeData();
     displayProjects(projects);
     populateCategoryFilter(categories, projects);

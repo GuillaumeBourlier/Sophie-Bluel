@@ -54,8 +54,10 @@
       </nav>
     </footer>
 
-    <script type="module" src="../script/authservice.js"></script>
-    <script type="module" src="../script/login.js"></script>
+    <script type="module">
+      import { handleLogin } from "../script/auth.js";
+      handleLogin();
+    </script>
 </body>
 
 </html>

@@ -44,33 +44,40 @@ export const displayProjects = (projectsToDisplay) => {
 // Fonction pour ajouter les catégories dans le filtre
 export const populateCategoryFilter = () => {
   const filterContainer = document.querySelector(".filters");
-  filterContainer.innerHTML = "";
+  filterContainer.innerHTML = ""; // Réinitialise les filtres
 
+  // Ajout du bouton "Tous"
   const allButton = document.createElement("li");
   allButton.innerHTML = `<button class="filter-btn selected" data-category="0">Tous</button>`;
   filterContainer.appendChild(allButton);
 
+  // Ajout des boutons pour chaque catégorie
   categories.forEach((category) => {
     const categoryButton = document.createElement("li");
     categoryButton.innerHTML = `<button class="filter-btn" data-category="${category.id}">${category.name}</button>`;
     filterContainer.appendChild(categoryButton);
   });
 
+  // Gestion des clics sur les boutons de filtre
   filterContainer.addEventListener("click", (event) => {
     if (event.target.classList.contains("filter-btn")) {
       const categoryId = event.target.getAttribute("data-category");
 
+      // Réinitialisation des styles des boutons
       document.querySelectorAll(".filter-btn").forEach((button) => {
         button.classList.remove("selected");
       });
 
+      // Ajout de la classe 'selected' au bouton cliqué
       event.target.classList.add("selected");
 
+      // Filtrage des projets en fonction de la catégorie sélectionnée
       const filteredProjects =
         categoryId == 0
           ? projects
           : projects.filter((project) => project.categoryId == categoryId);
 
+      // Affichage des projets filtrés
       displayProjects(filteredProjects);
     }
   });
