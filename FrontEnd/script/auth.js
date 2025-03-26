@@ -18,10 +18,9 @@ export const authenticateUser = async (email, password) => {
       );
       throw new Error("Authentification échouée");
     }
-// récupération du token
+    // récupération du token
     const data = await response.json();
     localStorage.setItem("token", data.token);
-    console.log("Token:", data.token);
   } catch (error) {
     console.error("Erreur lors de l'authentification :", error);
     throw error;
