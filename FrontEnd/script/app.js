@@ -1,9 +1,9 @@
 import { fetchProjects, fetchCategories } from "./api.js";
 
-export let projects = [];
-export let categories = [];
-let dataInitialized = false;
-let dataInitializationPromise = null;
+export let projects = []; // Tableau pour mettre en cache les projets
+export let categories = []; // Tableau pour mettre en cache les catégories
+let dataInitialized = false; // booléen pour indiquer si les données ont déjà été initialisées.
+let dataInitializationPromise = null; // Promesse pour l'initialisation des données
 
 // Fonction pour initialiser les données
 export const initializeData = async () => {
@@ -74,7 +74,7 @@ export const populateCategoryFilter = () => {
       // Filtrage des projets en fonction de la catégorie sélectionnée
       const filteredProjects =
         categoryId == 0
-          ? projects
+          ? projects // Afficher tous les projets si la catégorie "Tous" est sélectionnée
           : projects.filter((project) => project.categoryId == categoryId);
 
       // Affichage des projets filtrés

@@ -1,7 +1,7 @@
 //Fichier contenant les fonctions pour récupérer les données de l'API
 const apiUrl = "http://localhost:5678/api/works";
 const categoryUrl = "http://localhost:5678/api/categories";
-
+// Variables pour stocker les données en cache
 let projectsCache = null;
 let categoriesCache = null;
 
