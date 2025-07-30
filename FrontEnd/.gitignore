@@ -1,0 +1,11 @@
+# Fichiers de dépendances
+/Backend/node_modules/
+
+# Fichiers d'environnement
+# Ne jamais versionner les secrets et les clés d'API !
+/Backend/.env
+
+# Fichiers générés par les IDEs et le système d'exploitation
+.vscode/
+.idea/
+*.DS_Store
